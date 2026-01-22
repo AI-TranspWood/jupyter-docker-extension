@@ -1,9 +1,9 @@
 all: clean extension install
 
-ORG=mochoa
-JUPYTER_IMAGE_NAME=jupyter/scipy-notebook
-VERSION=22.4
-MINOR=2
+ORG=aitranspwood
+JUPYTER_IMAGE_NAME=ghcr.io/$(ORG)/eessi_jupyterlab:0.1.1
+VERSION=1.0
+MINOR=0
 IMAGE_NAME=$(ORG)/jupyter-docker-extension
 TAGGED_IMAGE_NAME=$(IMAGE_NAME):$(VERSION).${MINOR}
 
@@ -27,4 +27,7 @@ multiarch:
 	docker buildx create --name=buildx-multi-arch --driver=docker-container --driver-opt=network=host
 
 build:
+	docker buildx build --output=type=docker --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg JUPYTER_IMAGE_NAME=$(JUPYTER_IMAGE_NAME) --tag=$(TAGGED_IMAGE_NAME) .
+
+publish:
 	docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg JUPYTER_IMAGE_NAME=$(JUPYTER_IMAGE_NAME) --tag=$(TAGGED_IMAGE_NAME) .
