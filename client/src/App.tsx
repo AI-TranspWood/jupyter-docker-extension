@@ -24,7 +24,7 @@ export function App() {
   useEffect(() => {
     let timer: number;
     let shCmd = `"sed -i s/${prevMode}/${currentMode}/g ${jlabConfigFile}`
-      .concat(` || (mkdir -p ${jlabConfigDir} && echo \'{\\"theme\\": \\"JupyterLab ${currentMode}\\"}\' > ${jlabConfigFile})"`)
+      .concat(` || (mkdir -p ${jlabConfigDir} && echo -e \'{\n    \\"theme\\": \\"JupyterLab ${currentMode}\\\n"}\' > ${jlabConfigFile})"`)
     const start = async () => {
       setReady(() => false);
 
