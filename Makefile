@@ -1,7 +1,7 @@
 all: clean extension install
 
 ORG=aitranspwood
-JUPYTER_IMAGE_NAME=ghcr.io/$(ORG)/eessi_jupyterlab:0.1.1
+JUPYTER_IMAGE_NAME=ghcr.io/ai-transpwood/eessi_jupyterlab:0.1.2
 VERSION=1.0
 MINOR=0
 IMAGE_NAME=$(ORG)/jupyter-docker-extension
