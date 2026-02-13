@@ -14,8 +14,14 @@ clean:
 extension:
 	docker buildx build -t $(TAGGED_IMAGE_NAME) --build-arg VERSION=$(VERSION) --build-arg JUPYTER_IMAGE_NAME=$(JUPYTER_IMAGE_NAME) .
 
-install:
+install: extension
 	docker extension install -f $(TAGGED_IMAGE_NAME)
+
+debug:
+	docker extension dev debug $(TAGGED_IMAGE_NAME)
+
+undebug:
+	docker extension dev reset $(TAGGED_IMAGE_NAME)
 
 validate: extension
 	docker extension  validate $(TAGGED_IMAGE_NAME)
