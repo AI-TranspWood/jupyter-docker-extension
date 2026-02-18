@@ -1,11 +1,11 @@
 # AITW-JupyterLab Docker Extension
 
-This is a Docker Extension aimed at facilitating the access of AI-TranspWood codebases made avaiable in EESSI.
+This is a Docker Extension aimed at facilitating the access of [AI-TranspWood](https://www.ai-transpwood-project.eu/) codebases made available in [EESSI](https://www.eessi.io/).
 Each code base will present a notebook with an example on how to run a specific tool or workflow with a Graphical User Interface (GUI).
 
 ## Installation
 
-### From Marketplace
+### From Marketplace (not yet available)
 
 Since Docker Desktop [v4.11.0](https://docs.docker.com/desktop/release-notes/#docker-desktop-4110) the AITW-JupyterLab Extension is available in Marketplace page:
 
@@ -16,8 +16,6 @@ Since Docker Desktop [v4.11.0](https://docs.docker.com/desktop/release-notes/#do
 - Click on install
 
 ### From command line
-
-If you are using Docker Desktop [v4.10.1](https://docs.docker.com/desktop/release-notes/#docker-desktop-4101) or less  you can install just by executing:
 
 ```bash
 $ docker extension install aitranspwood/jupyter-docker-extension:1.0.0
@@ -38,9 +36,7 @@ Extension "AI-TranspWood codebases in EESSI" installed successfully
 
 ## NOTES
 
-- Running the code inside a specific notebook may require loading a specific software from EESSI through JupyterLmod before starting.
-  Please refer to the [notebook instructions](https://github.com/AI-TranspWood/jupyter-notebooks) (also available inside the extension) for more details.
-- The CVMFS cache is configure to use up to 10GB of disk space on your machine, this is not yet configurable so make sure you have enough disk space available.
+- The CVMFS cache is configure to use up to 10GB of disk space on your machine, this is not yet configurable so make sure you have enough disk space available (on average ~3GB can be used when loading all examples).
 
 
 ## Usage
