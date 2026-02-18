@@ -12,7 +12,6 @@ services:
     privileged: true
     ports:
       - 47811:8888
-      - 47812:5000
 
 volumes:
   jupyter_data:
