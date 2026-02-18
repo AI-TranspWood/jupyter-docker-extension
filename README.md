@@ -18,10 +18,10 @@ Since Docker Desktop [v4.11.0](https://docs.docker.com/desktop/release-notes/#do
 ### From command line
 
 ```bash
-$ docker extension install aitranspwood/jupyter-docker-extension:1.0.0
+$ docker extension install aitranspwood/jupyter-docker-extension
 Extensions can install binaries, invoke commands, access files on your machine and connect to remote URLs.
 Are you sure you want to continue? [y/N] y
-Extracting metadata and files for the extension "aitranspwood/jupyter-docker-extension:1.0.0"
+Extracting metadata and files for the extension "aitranspwood/jupyter-docker-extension:latest"
 Installing service in Desktop VM...
 Setting additional compose attributes
 Installing Desktop extension UI for tab "AITW-JupyterLab"...
