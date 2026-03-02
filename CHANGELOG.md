@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.5
+
+- Avoid using a fixed port, this is better to let docker assign a random port to avoid conflicts. Also it solves a niche problem where
+  re-installing the extension on Docker Desktop + Windows would cause weird ChunkLoader failures due to some pages used pre-cached (in the embedded browser) files from the previous VM instance. 
+
 ## v1.0.4
 
 - Add support for VM starting JupyterLab with or without a token

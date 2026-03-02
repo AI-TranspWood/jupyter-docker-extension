@@ -11,7 +11,7 @@ services:
     # Required for CVMFS to be able to mount the filesystem
     privileged: true
     ports:
-      - 47811:8888
+      - 8888
 
 volumes:
   jupyter_data:

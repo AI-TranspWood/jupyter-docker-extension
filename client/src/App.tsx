@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 const client = createDockerDesktopClient();
 const vmName = 'AITW_eessi_jupyter_embedded_dd_vm';
-const vmPort = 47811;
 const vmUser = 'eessi-user';
 const jlabConfigDir = `/home/${vmUser}/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/`;
 const jlabConfigFile = `${jlabConfigDir}/themes.jupyterlab-settings`;
@@ -14,6 +13,7 @@ function useDockerDesktopClient() {
 }
 
 export function App() {
+  const [port, setPort] = useState<number | null>(null);
   const [tokenStr, setTokenStr] = useState('');
   const [ready, setReady] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
@@ -51,6 +51,19 @@ export function App() {
           const result = await ddClient.extension.vm?.service?.get('/ready');
 
           if (Boolean(result)) {
+            // Get the random port mapped to 8888 in the compose file
+            const portResult = await ddClient.docker.cli.exec("inspect", [
+              vmName
+            ]);
+            const portResultJson = JSON.parse(portResult?.stdout || '[]');
+            const port = portResultJson?.[0]?.NetworkSettings?.Ports?.['8888/tcp']?.[0]?.HostPort;
+            if (port) {
+              console.log('Jupyter Notebook is ready at port', port);
+              setPort(() => parseInt(port));
+            } else {
+              throw new Error('Failed to get Jupyter Notebook port');
+            }
+
             // Get the token from the VM service
             const tokenResult = await ddClient.docker.cli.exec("logs", [
               vmName,
@@ -61,6 +74,8 @@ export function App() {
             if (tokenMatch) {
               setTokenStr(`?token=${tokenMatch[1]}`);
             }
+
+            // Set ready to true to show the iframe
             setReady(() => true);
             clearInterval(timer);
           }
@@ -101,7 +116,7 @@ export function App() {
         </Grid>
       )}
       {ready && (
-        window.location.href = `http://localhost:${vmPort}/lab${tokenStr}`
+        window.location.href = `http://localhost:${port}/lab${tokenStr}`
       )}
     </>
   );
