@@ -14,7 +14,7 @@ function useDockerDesktopClient() {
 }
 
 export function App() {
-  const [token, setToken] = useState('');
+  const [tokenStr, setTokenStr] = useState('');
   const [ready, setReady] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
   const ddClient = useDockerDesktopClient();
@@ -57,14 +57,12 @@ export function App() {
               // '--tail',
               // '60'
             ]);
-            const tokenMatch = tokenResult?.stderr?.match(/\?token=([a-z0-9]+)/);
+            const tokenMatch = tokenResult?.stderr?.match(/[\?&]token=([a-z0-9]+)/);
             if (tokenMatch) {
-              setToken(tokenMatch[1]);
-              setReady(() => true);
-              clearInterval(timer);
-            } else {
-              retries--;
+              setTokenStr(`?token=${tokenMatch[1]}`);
             }
+            setReady(() => true);
+            clearInterval(timer);
           }
         } catch (error) {
           console.log('error when checking Jupyter Notebook status', error);
@@ -103,7 +101,7 @@ export function App() {
         </Grid>
       )}
       {ready && (
-        window.location.href = `http://localhost:${vmPort}/lab?token=${token}`
+        window.location.href = `http://localhost:${vmPort}/lab${tokenStr}`
       )}
     </>
   );
