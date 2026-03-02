@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.4
+
+- Add support for VM starting JupyterLab with or without a token
+
 ## v1.0.3
 
 - Add timeout to idle kernels to mitigate https://github.com/voila-dashboards/voila/issues/479
