@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.5
+
+- Disabled `LabApp.service_worker` to avoid Chunk Load error on Docker Desktop for Windows.
+  Previously getting the extension in a working condition would require starting it, hit an error or blank screen, and than wait or refresh the extension several time until the cached chunks.
+
 ## v1.0.4
 
 - Add support for VM starting JupyterLab with or without a token
