@@ -7,22 +7,21 @@ Each code base will present a notebook with an example on how to run a specific 
 
 ### From Marketplace (not yet available)
 
-> **NOTE**: The extension is not yet available in the Marketplace, but it will be [soon](https://github.com/docker/extensions-submissions/issues/224).
-
 Since Docker Desktop [v4.11.0](https://docs.docker.com/desktop/release-notes/#docker-desktop-4110) the AITW-JupyterLab Extension is available in the Marketplace page:
 
 - From the Docker Desktop main window click on the **Extensions** tab in left side menu.
 - If you have not installed any extension yet, you will automatically jump to the **Manage**>**Browse** page
 - If you have already installed some extension, just click on the **Manage** tab and then on **Browse** button at top right side of the window
-- Look for **AITW-JupyterLab** extension (it will have the AITW project logo on the left)
+- Look for **AI-TranspWood codebases in EESSI** extension (it will have the AITW project logo on the left)
 - Click on install
 
 ### From command line
 
-Since the extension is not yet available in the Marketplace, you will have to install it from the command line.
-From Docker Desktop, you can open a terminal by clicking on the ">_ Terminal" button at the bottom right corner of the window.
+> [!NOTE]  
+> You will have to configure Docker Desktop to allow installing extensions from non-official sources.
+> To do that, go to **⚙️Settings** > **🧩Extensions** and untick the "Only allow extensions distributed through the Docker Marketplace" option.
 
-**Note**: Since the extension is not yet distributed through the Marketplace, you will have to configure Dockere Desktop to allow installing extensions from non-official sources. To do that, go to **⚙️Settings** > **🧩Extensions** and untick the "Only allow extensions distributed through the Docker Marketplace" option.
+From Docker Desktop, you can open a terminal by clicking on the ">_ Terminal" button at the bottom right corner of the window.
 
 Then run the following command in the terminal to install the extension:
 
@@ -45,7 +44,7 @@ For more information, see the [Docker documentation](https://docs.docker.com/ext
 
 ## Notes
 
-- The CVMFS cache is configured to use up to 10GB of disk space on your machine, this is not yet configurable so make sure you have enough disk space available (on average you will need ~3GB, when loading all examples).
+- The CVMFS cache is configured to use up to **10GB** of disk space on your machine, this is not yet configurable so make sure you have enough disk space available (on average you will need **~3GB**, when loading all examples).
 
 
 ## Usage
@@ -62,6 +61,10 @@ The data from the CVMFS cache is also persisted to make running EESSI software q
 
 
 ## Uninstall
+
+> [!WARNING]
+> Uninstalling the extension will also delete any volume associated with it.
+> Make sure to backup any important data before uninstalling the extension.
 
 ### From Docker Desktop
 
