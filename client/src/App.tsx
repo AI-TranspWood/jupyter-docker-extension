@@ -28,6 +28,8 @@ export function App() {
       .concat(` || (mkdir -p ${jlabConfigDir} && echo -e \'{\n    \\"theme\\": \\"JupyterLab ${currentMode}\\\n"}\' > ${jlabConfigFile})"`)
     const start = async () => {
       setReady(() => false);
+      // sleep 2 seconds to ensure the VM has been started
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       await ddClient.docker.cli.exec("exec", [
         '-d',
@@ -36,6 +38,43 @@ export function App() {
         '-c',
         shCmd
       ]);
+
+      // Get the random port mapped to 8888 in the compose file
+      const portResult = await ddClient.docker.cli.exec("port", [
+        vmName,
+        '8888'
+      ]);
+
+      const portMatch = portResult?.stdout?.match(/:(\d+)/);
+      if (portMatch) {
+        console.log('Jupyter Notebook is ready at port', portMatch[1]);
+        setPort(() => parseInt(portMatch[1]));
+        ddClient.docker.cli.exec("exec", [
+          vmName,
+          '/bin/bash',
+          '-c',
+          `"echo \'${portMatch[1]}\' > /home/${vmUser}/jupyter_port.env"`,
+        ]);
+      } else {
+        throw new Error('Failed to get Jupyter Notebook port');
+      }
+
+      const portResult2 = await ddClient.docker.cli.exec("port", [
+        vmName,
+        '5000'
+      ]);
+      const portMatch2 = portResult2?.stdout?.match(/:(\d+)/);
+      if (portMatch2) {
+        console.log('Flask server is ready at port', portMatch2[1]);
+        ddClient.docker.cli.exec("exec", [
+          vmName,
+          '/bin/bash',
+          '-c',
+          `"echo \'${portMatch2[1]}\' > /home/${vmUser}/flask_port.env"`,
+        ]);
+      } else {
+        throw new Error('Failed to get Flask server port');
+      }
     };
 
     start().then(() => {
@@ -51,18 +90,6 @@ export function App() {
           const result = await ddClient.extension.vm?.service?.get('/ready');
 
           if (Boolean(result)) {
-            // Get the random port mapped to 8888 in the compose file
-            const portResult = await ddClient.docker.cli.exec("inspect", [
-              vmName
-            ]);
-            const portResultJson = JSON.parse(portResult?.stdout || '[]');
-            const port = portResultJson?.[0]?.NetworkSettings?.Ports?.['8888/tcp']?.[0]?.HostPort;
-            if (port) {
-              console.log('Jupyter Notebook is ready at port', port);
-              setPort(() => parseInt(port));
-            } else {
-              throw new Error('Failed to get Jupyter Notebook port');
-            }
 
             // Get the token from the VM service
             const tokenResult = await ddClient.docker.cli.exec("logs", [

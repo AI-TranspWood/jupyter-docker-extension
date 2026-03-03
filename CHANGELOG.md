@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.6
+
+- Expose port 5000 to random port to bypass the fact that AiiDA explorer cannot authenticate to jupyterlab when accessing
+  the REST API behind jupyter-server-proxy.
+- At startup, the extensions makes the value of the exposed ports known to the VM container
+- Update version of VM container to v0.1.5 (that can use the exposed value of the ports)
+
 ## v1.0.5
 
 - Avoid using a fixed port, this is better to let docker assign a random port to avoid conflicts. Also it solves a niche problem where
