@@ -70,7 +70,10 @@ export function App() {
               // '--tail',
               // '60'
             ]);
-            const tokenMatch = tokenResult?.stderr?.match(/[\?&]token=([a-z0-9]+)/);
+            // Invert order of lines to find the latest token first (server restartswill cause a new token
+            // to be generated and old token to be invalid)
+            const reversed = tokenResult?.stderr?.split('\n').reverse()?.join('\n');
+            const tokenMatch = reversed?.match(/http.*\/lab\?.*token=([a-z0-9]+)/);
             if (tokenMatch) {
               setTokenStr(`?token=${tokenMatch[1]}`);
             }
