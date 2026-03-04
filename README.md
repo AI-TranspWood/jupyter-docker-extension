@@ -5,9 +5,13 @@ Each code base will present a notebook with an example on how to run a specific 
 
 ## Installation
 
-### From Marketplace (not yet available)
+### From Marketplace
 
-Since Docker Desktop [v4.11.0](https://docs.docker.com/desktop/release-notes/#docker-desktop-4110) the AITW-JupyterLab Extension is available in the Marketplace page:
+> [!NOTE]  
+> Requires Docker Desktop v4.11.0 or higher, make sure to update if you have an older version installed.
+
+
+Follow [this link](https://open.docker.com/extensions/marketplace?extensionId=aitranspwood/jupyter-docker-extension) and click on install or:
 
 - From the Docker Desktop main window click on the **Extensions** tab in left side menu.
 - If you have not installed any extension yet, you will automatically jump to the **Manage**>**Browse** page
