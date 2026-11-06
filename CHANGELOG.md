@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.7
+
+- Bump base image from `ghcr.io/ai-transpwood/eessi_jupyterlab:0.1.5` to `ghcr.io/ai-transpwood/eessi_jupyterlab:0.1.7`
+  - Use new Lmod based EESSI initialization
+  - Included hardcoded EESSI-kernels that allow running any version of Python in the notebooks
+  - Improved startup times
+  - Remove installed AiiDA exporter in favor of using the one provided online (just run the REST API and provide the URL to the exporter)
+- Includes several new AITW codebases and updates to the existing ones
+
 ## v1.0.6
 
 - Expose port 5000 to random port to bypass the fact that AiiDA explorer cannot authenticate to jupyterlab when accessing
